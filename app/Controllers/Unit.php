@@ -38,7 +38,7 @@ class Unit extends BaseController
     public function save()
     {
         if (!$this->validate([
-            'nama' => 'required',
+            'nama' => 'required|is_unique[unit.nama]',
             'email' => 'required|valid_email',
             'ketua' => 'required',
             'provinsi' => 'required',
