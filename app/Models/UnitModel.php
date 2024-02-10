@@ -8,7 +8,7 @@ class UnitModel extends Model
 {
     protected $table = 'unit';
     protected $useTimestamps = true;
-    protected $allowedFields = ['nama', 'ketua', 'email', 'provinsi', 'kota', 'kecamatan', 'kelurahan', 'alamat', 'tel', 'gambar'];
+    protected $allowedFields = ['nama', 'slug', 'ketua', 'email', 'provinsi', 'kota', 'kecamatan', 'kelurahan', 'alamat', 'tel', 'gambar'];
 
     function getUnit($slug = false)
     {
