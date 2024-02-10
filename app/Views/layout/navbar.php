@@ -13,13 +13,10 @@
                     <a class="nav-link" href="/pages/about">About</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/pages/contact">Contact</a>
+                    <a class="nav-link" href="/sampah">Sampah</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/unit">Unit</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/orang">Orang</a>
                 </li>
             </ul>
         </div>
