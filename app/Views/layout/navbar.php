@@ -10,13 +10,16 @@
                     <a class="nav-link active" aria-current="page" href="/">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/pages/about">About</a>
+                    <a class="nav-link" href="/nasabah">Nasabah</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/sampah">Sampah</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/unit">Unit</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout">Logout</a>
                 </li>
             </ul>
         </div>
