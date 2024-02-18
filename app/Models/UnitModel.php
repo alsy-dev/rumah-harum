@@ -17,4 +17,9 @@ class UnitModel extends Model
         }
         return $this->where(['slug' => $slug])->first();
     }
+
+    function getNamaUnit($id)
+    {
+        return $this->find($id)['nama'] ?? null;
+    }
 }

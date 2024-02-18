@@ -1,11 +1,12 @@
 <?php
 
+use App\Controllers\Regist;
 use CodeIgniter\Router\RouteCollection;
 
 /**
  * @var RouteCollection $routes
  */
-$routes->get('/', 'Home::index');
+$routes->get('/', 'Sampah::index');
 
 $routes->get('/unit', 'Unit::index');
 $routes->get('/unit/create', 'Unit::create');
@@ -23,4 +24,10 @@ $routes->get('/sampah/(:segment)', 'Sampah::detail/$1');
 $routes->post('/sampah/update/(:num)', 'Sampah::update/$1');
 $routes->delete('/sampah/(:num)', 'Sampah::delete/$1');
 
+$routes->get('/nasabah', 'Nasabah::index');
+$routes->post('/nasabah', 'Nasabah::index');
+$routes->post('/nasabah/save', 'Nasabah::save');
+$routes->post('/nasabah/update/(:num)', 'Nasabah::update/$1');
+$routes->delete('/nasabah/(:num)', 'Nasabah::delete/$1');
+$routes->get('/nasabah/(:segment)', 'Nasabah::detail/$1');
 service('auth')->routes($routes);
