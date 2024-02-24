@@ -10,19 +10,6 @@ class RiwayatTransaksiUnitModel extends Model
     protected $useTimestamps = true;
     protected $allowedFields = ['id_unit', 'nominal', 'status'];
 
-    function getUnit($slug = false)
-    {
-        if (!$slug) {
-            return $this->findAll();
-        }
-        return $this->where(['slug' => $slug])->first();
-    }
-
-    function getNamaUnit($id)
-    {
-        return $this->find($id)['nama'] ?? null;
-    }
-
     function getRiwayatTransaksiUnit()
     {
         // $builder = $this->builder();
