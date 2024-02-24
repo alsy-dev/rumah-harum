@@ -15,7 +15,7 @@ class Sampah extends BaseController
     }
     public function index()
     {
-
+        if (!auth()->user()->can('admin.list-sampah')) return "Didn't have access";
         $data = [
             'title' => "Table Sampah",
             'sampah'  =>  $this->sampahModel->findAll()
@@ -26,6 +26,7 @@ class Sampah extends BaseController
 
     public function create()
     {
+        if (!auth()->user()->can('admin.tambah-sampah')) return "Didn't have access";
         $data = [
             'title' => 'Form Tambah Data sampah'
         ];
@@ -35,6 +36,7 @@ class Sampah extends BaseController
 
     public function save()
     {
+        if (!auth()->user()->can('admin.tambah-sampah')) return "Didn't have access";
         if (!$this->validate([
             'nama' => 'required|is_unique[sampah.nama]',
             'jenis' => 'required',
@@ -72,6 +74,7 @@ class Sampah extends BaseController
 
     public function detail($slug)
     {
+        if (!auth()->user()->can('admin.list-sampah')) return "Didn't have access";
         $data = [
             'title' => 'Detail',
             'sampah' => $this->sampahModel->getSampah($slug)
@@ -82,6 +85,8 @@ class Sampah extends BaseController
 
     public function delete($id)
     {
+        $currentUser = auth()->user();
+        if (!($currentUser->inGroup('superadmin'))) return "Didn't have access";
         $sampah = $this->sampahModel->find($id);
         if ($sampah['gambar'] != 'kucing.webp') {
             unlink('img/sampah/' . $sampah['gambar']);
@@ -93,6 +98,8 @@ class Sampah extends BaseController
 
     public function edit($slug)
     {
+        $currentUser = auth()->user();
+        if (!($currentUser->can('admin.list-sampah'))) return "Didn't have access";
         $data = [
             'title' => 'Form Edit Data sampah',
             // 'validation' => session('validation') ?? \Config\Services::validation(),
@@ -104,6 +111,8 @@ class Sampah extends BaseController
 
     public function update($id)
     {
+        $currentUser = auth()->user();
+        if (!($currentUser->can('admin.pengajuan-sampah'))) return "Didn't have access";
         $sampahLama = $this->sampahModel->getsampah($this->request->getVar('slug'));
         if ($sampahLama['nama'] == $this->request->getVar('nama')) {
             $rule_nama = 'required';

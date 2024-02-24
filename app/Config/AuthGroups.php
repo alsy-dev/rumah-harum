@@ -67,6 +67,15 @@ class AuthGroups extends ShieldAuthGroups
      * If a permission is not listed here it cannot be used.
      */
     public array $permissions = [
+        'admin.dashboard'     => 'Can access the sites dashboard area',
+        'admin.list-nasabah'  => 'Can access the nasabah list',
+        'admin.list-unit'     => 'Can access the unit list',
+        'admin.pengajuan-unit' => 'Can access the pengajuan unit',
+        'admin.list-sampah'   => 'Can access the sampah list',
+        'admin.tambah-sampah' => 'Can add a new sampah',
+        'admin.saldo-pusat'   => 'Can manage saldo pusat',
+        'admin.saldo-unit'    => 'Can manage saldo unit',
+        'admin.access-control' => 'Can control the access',
         'admin.access'        => 'Can access the sites admin area',
         'admin.settings'      => 'Can access the main site settings',
         'users.manage-admins' => 'Can manage other admins',
@@ -85,19 +94,19 @@ class AuthGroups extends ShieldAuthGroups
      * This defines group-level permissions.
      */
     public array $matrix = [
-        'superadmin' => [
-            'admin.*',
-            'users.*',
-            'beta.*',
-        ],
-        'admin' => [
-            'admin.access',
-            'users.create',
-            'users.edit',
-            'users.delete',
-            'beta.access',
-        ],
-        'user' => [],
+        // 'superadmin' => [
+        //     'admin.*',
+        //     'users.*',
+        //     'beta.*',
+        // ],
+        // 'admin' => [
+        //     'admin.access',
+        //     'users.create',
+        //     'users.edit',
+        //     'users.delete',
+        //     'beta.access',
+        // ],
+        // 'user' => [],
         // 'beta' => [
         //     'beta.access',
         // ],

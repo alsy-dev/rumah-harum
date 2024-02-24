@@ -17,7 +17,7 @@ class Unit extends BaseController
     }
     public function index()
     {
-
+        if (!auth()->user()->can('admin.list-unit')) return "error";
         $data = [
             'title' => "Contoh",
             'unit'  =>  $this->unitModel->getUnit()
@@ -28,6 +28,7 @@ class Unit extends BaseController
 
     public function create()
     {
+        if (!auth()->user()->can('admin.list-unit')) return "error";
         $data = [
             'title' => 'Form Tambah Data Unit'
         ];
@@ -37,6 +38,7 @@ class Unit extends BaseController
 
     public function save()
     {
+        if (!auth()->user()->can('admin.list-unit')) return "error";
         if (!$this->validate([
             'nama' => 'required|is_unique[unit.nama]',
             'email' => 'required|valid_email',
@@ -81,6 +83,7 @@ class Unit extends BaseController
 
     public function detail($slug)
     {
+        if (!auth()->user()->can('admin.list-unit')) return "error";
         $data = [
             'title' => 'Detail',
             'unit' => $this->unitModel->getUnit($slug)
@@ -91,6 +94,7 @@ class Unit extends BaseController
 
     public function delete($id)
     {
+        if (!auth()->user()->can('admin.list-unit')) return "error";
         $unit = $this->unitModel->find($id);
         if ($unit['gambar'] != 'kucing.webp') {
             unlink('img/' . $unit['gambar']);
@@ -102,6 +106,7 @@ class Unit extends BaseController
 
     public function edit($slug)
     {
+        if (!auth()->user()->can('admin.list-unit')) return "error";
         $data = [
             'title' => 'Form Edit Data Unit',
             // 'validation' => session('validation') ?? \Config\Services::validation(),
@@ -113,6 +118,7 @@ class Unit extends BaseController
 
     public function update($id)
     {
+        if (!auth()->user()->can('admin.list-unit')) return "error";
         $unitLama = $this->unitModel->getunit($this->request->getVar('slug'));
         if ($unitLama['nama'] == $this->request->getVar('nama')) {
             $rule_nama = 'required';

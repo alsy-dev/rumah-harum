@@ -5,9 +5,12 @@ namespace App\Controllers;
 use App\Entities\User;
 use App\Models\UnitModel;
 use CodeIgniter\API\ResponseTrait;
+use CodeIgniter\Exceptions\PageNotFoundException;
 use CodeIgniter\Shield\Models\GroupModel;
 use Config\Validation;
 use CodeIgniter\Shield\Entities\User as ShieldUser;
+
+use function PHPUnit\Framework\returnSelf;
 
 class Nasabah extends BaseController
 {
@@ -26,7 +29,7 @@ class Nasabah extends BaseController
     }
     public function index()
     {
-        // $currentPage = $this->request->getVar('page_nasabah') ?? 1;
+        if (!auth()->user()->can('admin.list-nasabah')) return "error";
         $keyword = $this->request->getVar('keyword');
         if ($keyword) {
             $nasabah = $this->nasabahModel->search($keyword);
@@ -46,6 +49,7 @@ class Nasabah extends BaseController
 
     // public function create()
     // {
+    //        
     //     $data = [
     //         'title' => 'Form Tambah Data sampah'
     //     ];
@@ -55,6 +59,7 @@ class Nasabah extends BaseController
 
     public function save()
     {
+        if (!auth()->user()->can('admin.list-nasabah')) return "error";
         if (!$this->validate([
             'username' => [
                 'label' => 'Auth.username',
@@ -152,6 +157,7 @@ class Nasabah extends BaseController
 
     public function detail($username)
     {
+        if (!auth()->user()->can('admin.list-nasabah')) return "error";
         $data = [
             'title' => 'Detail Nasabah',
             'nasabah' => $this->nasabahModel->getNasabah($username)
@@ -162,6 +168,7 @@ class Nasabah extends BaseController
 
     public function delete($id)
     {
+        if (!auth()->user()->can('admin.list-nasabah')) return "error";
         $this->nasabahModel->delete($id);
         session()->setFlashdata('pesan', 'Nasabah berhasil dihapus.');
         return redirect()->to('/nasabah');
@@ -169,6 +176,7 @@ class Nasabah extends BaseController
 
     public function edit($username)
     {
+        if (!auth()->user()->can('admin.list-nasabah')) return "error";
         $data = [
             'title' => 'Form Edit Data Nasabah',
             'nasabah' => $this->nasabahModel->getNasabah($username)
@@ -179,6 +187,7 @@ class Nasabah extends BaseController
 
     public function update($id)
     {
+        if (!auth()->user()->can('admin.list-nasabah')) return "error";
         $nasabahLama = $this->nasabahModel->findById($id);
 
         $username = $this->request->getVar('username');
