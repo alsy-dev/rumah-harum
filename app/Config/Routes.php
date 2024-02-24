@@ -37,4 +37,6 @@ $routes->get('/access/(:segment)', 'Access::detail/$1');
 $routes->post('/access/update/(:num)', 'Access::update/$1');
 
 $routes->get('/riwayattransaksiunit', 'RiwayatTransaksiUnit::index');
+
+$routes->get('/riwayattransaksinasabah', 'RiwayatTransaksiNasabah::index');
 service('auth')->routes($routes);
