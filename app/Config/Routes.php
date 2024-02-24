@@ -30,4 +30,6 @@ $routes->post('/nasabah/save', 'Nasabah::save');
 $routes->post('/nasabah/update/(:num)', 'Nasabah::update/$1');
 $routes->delete('/nasabah/(:num)', 'Nasabah::delete/$1');
 $routes->get('/nasabah/(:segment)', 'Nasabah::detail/$1');
+
+$routes->get('/access', 'Access::index');
 service('auth')->routes($routes);
