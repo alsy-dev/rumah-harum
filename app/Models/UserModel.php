@@ -9,6 +9,10 @@ use CodeIgniter\Shield\Models\UserModel as ShieldUserModel;
 class UserModel extends ShieldUserModel
 {
 
+    public static function instance(): UserModel
+    {
+        return auth()->getProvider();
+    }
 
     protected $returnType = \App\Entities\User::class;
     protected function initialize(): void

@@ -25,25 +25,17 @@
                 <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Unit</th>
-                        <th scope="col">Nama Nasabah</th>
-                        <th scope="col">Jenis Nasabah</th>
-                        <th scope="col">Tanggal Gabung</th>
-                        <th scope="col">Alamat Lengkap</th>
+                        <th scope="col">Nama</th>
                         <th scope="col">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php $i = 1 + ($pager->getCurrentPage() - 1) * $pager->getPerPage(); ?>
-                    <?php foreach ($nasabah as $n) : ?>
+                    <?php foreach ($admin as $a) : ?>
                         <tr>
                             <th scope="row"><?= $i++; ?></th>
-                            <td><?= $units->getNamaUnit($n->idUnit); ?></td>
-                            <td><?= $n->namaLengkap; ?></td>
-                            <td><?= $n->jenisNasabah; ?></td>
-                            <td><?= $n->createdAt; ?></td>
-                            <td><?= $n->alamat; ?></td>
-                            <td><a href="/nasabah/<?= $n->username; ?>" class="btn btn-success">Detail</a></td>
+                            <td><?= $a->namaLengkap; ?></td>
+                            <td><a href="/access/<?= $a->username; ?>" class="btn btn-success">Detail</a></td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
