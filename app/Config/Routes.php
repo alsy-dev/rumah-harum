@@ -35,4 +35,6 @@ $routes->get('/access', 'Access::index');
 $routes->post('/access/save', 'Access::save');
 $routes->get('/access/(:segment)', 'Access::detail/$1');
 $routes->post('/access/update/(:num)', 'Access::update/$1');
+
+$routes->get('/riwayattransaksiunit', 'RiwayatTransaksiUnit::index');
 service('auth')->routes($routes);
