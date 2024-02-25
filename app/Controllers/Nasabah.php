@@ -5,12 +5,7 @@ namespace App\Controllers;
 use App\Entities\User;
 use App\Models\UnitModel;
 use CodeIgniter\API\ResponseTrait;
-use CodeIgniter\Exceptions\PageNotFoundException;
 use CodeIgniter\Shield\Models\GroupModel;
-use Config\Validation;
-use CodeIgniter\Shield\Entities\User as ShieldUser;
-
-use function PHPUnit\Framework\returnSelf;
 
 class Nasabah extends BaseController
 {
@@ -38,24 +33,14 @@ class Nasabah extends BaseController
         }
 
         $data = [
-            'title' => "Tabel Nasabah",
-            'nasabah'  =>  $this->nasabahModel->paginate(10, 'users'),
-            'units' => $this->unitModel,
-            'pager' => $this->nasabahModel->pager
+            'title'     => "Tabel Nasabah",
+            'nasabah'   =>  $nasabah->paginate(10, 'users'),
+            'units'     => $this->unitModel,
+            'pager'     => $this->nasabahModel->pager
         ];
 
         return view('nasabah/index', $data);
     }
-
-    // public function create()
-    // {
-    //        
-    //     $data = [
-    //         'title' => 'Form Tambah Data sampah'
-    //     ];
-
-    //     return view('sampah/create', $data);
-    // }
 
     public function save()
     {
@@ -128,23 +113,23 @@ class Nasabah extends BaseController
 
         $fileGambar = $this->request->getFile('profile_picture');
         if ($fileGambar->getError() == 4) {
-            $namaGambar = 'kucing.webp';
+            $namaGambar = 'placeholder.webp';
         } else {
             $namaGambar = $fileGambar->getRandomName();
             $fileGambar->move('img/nasabah', $namaGambar);
         }
 
         $user = new User([
-            'username' => $this->request->getVar('username'),
-            'nama_lengkap' => $this->request->getVar('nama_lengkap'),
-            'jenis_nasabah' => $this->request->getVar('jenis_nasabah'),
-            'id_unit' => $this->request->getVar('id_unit'),
-            'alamat' => $this->request->getVar('alamat'),
-            'mobile_number' => $this->request->getVar('mobile_number'),
-            'email' => $this->request->getVar('email'),
-            'profile_picture' => $namaGambar,
-            'penanggung_jawab' => $this->request->getVar('penanggung_jawab'),
-            'password' => $this->request->getVar('password')
+            'username'          => $this->request->getVar('username'),
+            'nama_lengkap'      => $this->request->getVar('nama_lengkap'),
+            'jenis_nasabah'     => $this->request->getVar('jenis_nasabah'),
+            'id_unit'           => $this->request->getVar('id_unit'),
+            'alamat'            => $this->request->getVar('alamat'),
+            'mobile_number'     => $this->request->getVar('mobile_number'),
+            'email'             => $this->request->getVar('email'),
+            'profile_picture'   => $namaGambar,
+            'penanggung_jawab'  => $this->request->getVar('penanggung_jawab'),
+            'password'          => $this->request->getVar('password')
         ]);
         $this->nasabahModel->save($user);
         $user = $this->nasabahModel->findById($this->nasabahModel->getInsertID());
@@ -159,8 +144,8 @@ class Nasabah extends BaseController
     {
         if (!auth()->user()->can('admin.list-nasabah')) return "error";
         $data = [
-            'title' => 'Detail Nasabah',
-            'nasabah' => $this->nasabahModel->getNasabah($username)
+            'title'     => 'Detail Nasabah',
+            'nasabah'   => $this->nasabahModel->getNasabah($username)
         ];
 
         return view('nasabah/detail', $data);
@@ -178,8 +163,8 @@ class Nasabah extends BaseController
     {
         if (!auth()->user()->can('admin.list-nasabah')) return "error";
         $data = [
-            'title' => 'Form Edit Data Nasabah',
-            'nasabah' => $this->nasabahModel->getNasabah($username)
+            'title'     => 'Form Edit Data Nasabah',
+            'nasabah'   => $this->nasabahModel->getNasabah($username)
         ];
 
         return view('nasabah/edit', $data);
@@ -298,15 +283,15 @@ class Nasabah extends BaseController
         }
 
         $nasabahLama->fill([
-            'username' => $username,
-            'nama_lengkap' => $this->request->getVar('nama_lengkap'),
-            'jenis_nasabah' => $this->request->getVar('jenis_nasabah'),
-            'id_unit' => $this->request->getVar('id_unit'),
-            'alamat' => $this->request->getVar('alamat'),
-            'mobile_number' => $mobileNumber,
-            'email' => $email,
-            'profile_picture' => $namaGambar,
-            'penanggung_jawab' => $this->request->getVar('penanggung_jawab')
+            'username'          => $username,
+            'nama_lengkap'      => $this->request->getVar('nama_lengkap'),
+            'jenis_nasabah'     => $this->request->getVar('jenis_nasabah'),
+            'id_unit'           => $this->request->getVar('id_unit'),
+            'alamat'            => $this->request->getVar('alamat'),
+            'mobile_number'     => $mobileNumber,
+            'email'             => $email,
+            'profile_picture'   => $namaGambar,
+            'penanggung_jawab'  => $this->request->getVar('penanggung_jawab')
         ]);
         $this->nasabahModel->save($nasabahLama);
         return $this->respondUpdated(['message' => 'berhasil coy']);

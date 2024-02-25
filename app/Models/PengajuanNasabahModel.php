@@ -2,8 +2,6 @@
 
 namespace App\Models;
 
-use App\Controllers\PengajuanUnit;
-use App\Controllers\Sampah;
 use CodeIgniter\Model;
 
 class PengajuanNasabahModel extends Model
@@ -45,20 +43,20 @@ class PengajuanNasabahModel extends Model
     function submitPengajuan($array)
     {
         $this->save([
-            'id_nasabah' => $array['id_nasabah'],
-            'id_unit' => $array['id_unit'],
-            'status' => 'Waiting',
-            'id_user' => $array['id_user'] ?: null,
+            'id_nasabah'    => $array['id_nasabah'],
+            'id_unit'       => $array['id_unit'],
+            'status'        => 'Waiting',
+            'id_user'       => $array['id_user'] ?: null,
         ]);
 
         $id = $this->getInsertID();
 
         foreach (array_keys($array['id_sampah']) as $index) {
             $this->sampahPengajuanModel->save([
-                'id_pengajuan_nasabah' => $id,
-                'id_sampah' => $array['id_sampah'][$index],
-                'berat' => $array['berat'][$index],
-                'point' => 20
+                'id_pengajuan_nasabah'  => $id,
+                'id_sampah'             => $array['id_sampah'][$index],
+                'berat'                 => $array['berat'][$index],
+                'point'                 => 20
             ]);
         }
     }
@@ -66,11 +64,11 @@ class PengajuanNasabahModel extends Model
     function updatePengajuan($id, $array)
     {
         $this->save([
-            'id' => $id,
-            'id_nasabah' => $array['id_nasabah'],
-            'id_unit' => $array['id_unit'],
-            'status' => 'Waiting',
-            'id_user' => $array['id_user'] ?: null,
+            'id'            => $id,
+            'id_nasabah'    => $array['id_nasabah'],
+            'id_unit'       => $array['id_unit'],
+            'status'        => 'Waiting',
+            'id_user'       => $array['id_user'] ?: null,
         ]);
 
         $oldSampahIds = $this->sampahPengajuanModel->where('id_pengajuan_nasabah', $id)->findColumn('id');
@@ -78,10 +76,10 @@ class PengajuanNasabahModel extends Model
 
         foreach (array_keys($array['id_sampah']) as $index) {
             $this->sampahPengajuanModel->save([
-                'id_pengajuan_nasabah' => $id,
-                'id_sampah' => $array['id_sampah'][$index],
-                'berat' => $array['berat'][$index],
-                'point' => 20
+                'id_pengajuan_nasabah'  => $id,
+                'id_sampah'             => $array['id_sampah'][$index],
+                'berat'                 => $array['berat'][$index],
+                'point'                 => 20
             ]);
         }
     }
@@ -89,8 +87,8 @@ class PengajuanNasabahModel extends Model
     function validatePengajuan($id)
     {
         $this->save([
-            'id' => $id,
-            'status' => 'Terverifikasi'
+            'id'        => $id,
+            'status'    => 'Terverifikasi'
         ]);
     }
 }

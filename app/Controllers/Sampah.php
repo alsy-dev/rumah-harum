@@ -17,8 +17,8 @@ class Sampah extends BaseController
     {
         if (!auth()->user()->can('admin.list-sampah')) return "Didn't have access";
         $data = [
-            'title' => "Table Sampah",
-            'sampah'  =>  $this->sampahModel->findAll()
+            'title'     => "Table Sampah",
+            'sampah'    =>  $this->sampahModel->findAll()
         ];
 
         return view('sampah/index', $data);
@@ -38,18 +38,18 @@ class Sampah extends BaseController
     {
         if (!auth()->user()->can('admin.tambah-sampah')) return "Didn't have access";
         if (!$this->validate([
-            'nama' => 'required|is_unique[sampah.nama]',
-            'jenis' => 'required',
+            'nama'          => 'required|is_unique[sampah.nama]',
+            'jenis'         => 'required',
             'harga_nasabah' => 'required',
-            'harga_unit' => 'required',
-            'gambar' => 'is_image[gambar]|ext_in[gambar,png,jpeg,webp,jpg]'
+            'harga_unit'    => 'required',
+            'gambar'        => 'is_image[gambar]|ext_in[gambar,png,jpeg,webp,jpg]'
         ])) {
             return redirect()->to('/sampah/create')->withInput();
         }
 
         $fileGambar = $this->request->getFile('gambar');
         if ($fileGambar->getError() == 4) {
-            $namaGambar = 'kucing.webp';
+            $namaGambar = 'placeholder.webp';
         } else {
             $namaGambar = $fileGambar->getRandomName();
             $fileGambar->move('img/sampah', $namaGambar);
@@ -59,13 +59,13 @@ class Sampah extends BaseController
         $slug = url_title($namaSampah, '-', true);
 
         $this->sampahModel->save([
-            'nama' => $namaSampah,
-            'slug' => $slug,
-            'jenis' => $this->request->getVar('jenis'),
+            'nama'          => $namaSampah,
+            'slug'          => $slug,
+            'jenis'         => $this->request->getVar('jenis'),
             'harga_nasabah' => $this->request->getVar('harga_nasabah'),
-            'harga_unit' => $this->request->getVar('harga_unit'),
-            'keterangan' => $this->request->getVar('keterangan'),
-            'gambar' => $namaGambar,
+            'harga_unit'    => $this->request->getVar('harga_unit'),
+            'keterangan'    => $this->request->getVar('keterangan'),
+            'gambar'        => $namaGambar,
         ]);
 
         session()->setFlashdata('pesan', 'Sampah Berhasil Ditambahkan');
@@ -76,8 +76,8 @@ class Sampah extends BaseController
     {
         if (!auth()->user()->can('admin.list-sampah')) return "Didn't have access";
         $data = [
-            'title' => 'Detail',
-            'sampah' => $this->sampahModel->getSampah($slug)
+            'title'     => 'Detail',
+            'sampah'    => $this->sampahModel->getSampah($slug)
         ];
 
         return view('sampah/detail', $data);
@@ -88,7 +88,7 @@ class Sampah extends BaseController
         $currentUser = auth()->user();
         if (!($currentUser->inGroup('superadmin'))) return "Didn't have access";
         $sampah = $this->sampahModel->find($id);
-        if ($sampah['gambar'] != 'kucing.webp') {
+        if ($sampah['gambar'] != 'placeholder.webp') {
             unlink('img/sampah/' . $sampah['gambar']);
         }
         $this->sampahModel->delete($id);
@@ -123,11 +123,11 @@ class Sampah extends BaseController
 
 
         if (!$this->validate([
-            'nama' => $rule_nama,
-            'jenis' => 'required',
+            'nama'          => $rule_nama,
+            'jenis'         => 'required',
             'harga_nasabah' => 'required',
-            'harga_unit' => 'required',
-            'gambar' => 'is_image[gambar]|ext_in[gambar,png,jpeg,webp,jpg]'
+            'harga_unit'    => 'required',
+            'gambar'        => 'is_image[gambar]|ext_in[gambar,png,jpeg,webp,jpg]'
         ])) {
             return redirect()->to('/sampah/edit/' . $this->request->getVar('slug'))->withInput();
             // return redirect()->to(base_url() . '/sampah/edit/' . $this->request->getVar('slug'))->withInput();
@@ -144,14 +144,14 @@ class Sampah extends BaseController
         $namaSampah = $this->request->getVar('nama');
         $slug = url_title($namaSampah, '-', true);
         $this->sampahModel->save([
-            'id' => $id,
-            'nama' => $namaSampah,
-            'slug' => $slug,
-            'jenis' => $this->request->getVar('jenis'),
+            'id'            => $id,
+            'nama'          => $namaSampah,
+            'slug'          => $slug,
+            'jenis'         => $this->request->getVar('jenis'),
             'harga_nasabah' => $this->request->getVar('harga_nasabah'),
-            'harga_unit' => $this->request->getVar('harga_unit'),
-            'keterangan' => $this->request->getVar('keterangan'),
-            'gambar' => $namaGambar,
+            'harga_unit'    => $this->request->getVar('harga_unit'),
+            'keterangan'    => $this->request->getVar('keterangan'),
+            'gambar'        => $namaGambar,
         ]);
 
         session()->setFlashdata('pesan', 'Data berhasil diubah.');

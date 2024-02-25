@@ -23,7 +23,7 @@ class RiwayatTransaksiUnit extends BaseController
     public function index()
     {
         $data = [
-            'title' => "Riwayat Transaksi Unit",
+            'title'             => "Riwayat Transaksi Unit",
             'riwayatTransaksi'  =>  $this->riwayatTransaksiUnitModel->getRiwayatTransaksiUnit()
         ];
 

@@ -37,23 +37,14 @@ class Access extends BaseController
         }
 
         $data = [
-            'title' => "Tabel Nasabah",
-            'admin'  =>  $this->nasabahModel->paginate(10, 'users'),
-            'units' => $this->unitModel,
-            'pager' => $this->nasabahModel->pager
+            'title'     => "Tabel Nasabah",
+            'admin'     =>  $nasabah->paginate(10, 'users'),
+            'units'     => $this->unitModel,
+            'pager'     => $this->nasabahModel->pager
         ];
 
         return view('access/index', $data);
     }
-
-    // // public function create()
-    // // {
-    // //     $data = [
-    // //         'title' => 'Form Tambah Data sampah'
-    // //     ];
-
-    // //     return view('sampah/create', $data);
-    // // }
 
     public function detail($username)
     {
@@ -65,23 +56,6 @@ class Access extends BaseController
 
         return view('access/detail', $data);
     }
-
-    // public function delete($id)
-    // {
-    //     $this->nasabahModel->delete($id);
-    //     session()->setFlashdata('pesan', 'Nasabah berhasil dihapus.');
-    //     return redirect()->to('/nasabah');
-    // }
-
-    // public function edit($username)
-    // {
-    //     $data = [
-    //         'title' => 'Form Edit Data Nasabah',
-    //         'nasabah' => $this->nasabahModel->getNasabah($username)
-    //     ];
-
-    //     return view('nasabah/edit', $data);
-    // }
 
     public function update($id)
     {

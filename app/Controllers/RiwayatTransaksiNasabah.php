@@ -22,7 +22,7 @@ class RiwayatTransaksiNasabah extends BaseController
     public function index()
     {
         $data = [
-            'title' => "Riwayat Transaksi nasabah",
+            'title'             => "Riwayat Transaksi nasabah",
             'riwayatTransaksi'  =>  $this->riwayatTransaksiNasabahModel->getRiwayatTransaksiNasabah()
         ];
 

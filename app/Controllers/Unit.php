@@ -40,22 +40,22 @@ class Unit extends BaseController
     {
         if (!auth()->user()->can('admin.list-unit')) return "error";
         if (!$this->validate([
-            'nama' => 'required|is_unique[unit.nama]',
-            'email' => 'required|valid_email',
-            'ketua' => 'required',
-            'provinsi' => 'required',
-            'kota' => 'required',
+            'nama'      => 'required|is_unique[unit.nama]',
+            'email'     => 'required|valid_email',
+            'ketua'     => 'required',
+            'provinsi'  => 'required',
+            'kota'      => 'required',
             'kecamatan' => 'required',
             'kelurahan' => 'required',
-            'tel' => 'required',
-            'alamat' => 'required'
+            'tel'       => 'required',
+            'alamat'    => 'required'
         ])) {
             return redirect()->to('/unit/create')->withInput();
         }
 
         $fileGambar = $this->request->getFile('gambar');
         if ($fileGambar->getError() == 4) {
-            $namaGambar = 'kucing.webp';
+            $namaGambar = 'placeholder.webp';
         } else {
             $namaGambar = $fileGambar->getRandomName();
             $fileGambar->move('img', $namaGambar);
@@ -64,17 +64,17 @@ class Unit extends BaseController
         $namaUnit = $this->request->getVar('nama');
 
         $this->unitModel->save([
-            'nama' => $namaUnit,
-            'slug' => url_title($namaUnit, '-', true),
-            'email' => $this->request->getVar('email'),
-            'ketua' => $this->request->getVar('ketua'),
-            'provinsi' => $this->request->getVar('provinsi'),
-            'kota' => $this->request->getVar('kota'),
+            'nama'      => $namaUnit,
+            'slug'      => url_title($namaUnit, '-', true),
+            'email'     => $this->request->getVar('email'),
+            'ketua'     => $this->request->getVar('ketua'),
+            'provinsi'  => $this->request->getVar('provinsi'),
+            'kota'      => $this->request->getVar('kota'),
             'kecamatan' => $this->request->getVar('kecamatan'),
             'kelurahan' => $this->request->getVar('kelurahan'),
-            'alamat' => $this->request->getVar('alamat'),
-            'tel' => $this->request->getVar('tel'),
-            'gambar' => $namaGambar,
+            'alamat'    => $this->request->getVar('alamat'),
+            'tel'       => $this->request->getVar('tel'),
+            'gambar'    => $namaGambar,
         ]);
 
         session()->setFlashdata('pesan', 'Data Berhasil Ditambahkan');
@@ -86,7 +86,7 @@ class Unit extends BaseController
         if (!auth()->user()->can('admin.list-unit')) return "error";
         $data = [
             'title' => 'Detail',
-            'unit' => $this->unitModel->getUnit($slug)
+            'unit'  => $this->unitModel->getUnit($slug)
         ];
 
         return view('unit/detail', $data);
@@ -96,7 +96,7 @@ class Unit extends BaseController
     {
         if (!auth()->user()->can('admin.list-unit')) return "error";
         $unit = $this->unitModel->find($id);
-        if ($unit['gambar'] != 'kucing.webp') {
+        if ($unit['gambar'] != 'placeholder.webp') {
             unlink('img/' . $unit['gambar']);
         }
         $this->unitModel->delete($id);
@@ -109,8 +109,7 @@ class Unit extends BaseController
         if (!auth()->user()->can('admin.list-unit')) return "error";
         $data = [
             'title' => 'Form Edit Data Unit',
-            // 'validation' => session('validation') ?? \Config\Services::validation(),
-            'unit' => $this->unitModel->getUnit($slug)
+            'unit'  => $this->unitModel->getUnit($slug)
         ];
 
         return view('unit/edit', $data);
@@ -126,21 +125,18 @@ class Unit extends BaseController
             $rule_nama = 'required|is_unique[unit.nama]';
         }
 
-
-
         if (!$this->validate([
-            'nama' => $rule_nama,
-            'email' => 'required|valid_email',
-            'ketua' => 'required',
-            'provinsi' => 'required',
-            'kota' => 'required',
+            'nama'      => $rule_nama,
+            'email'     => 'required|valid_email',
+            'ketua'     => 'required',
+            'provinsi'  => 'required',
+            'kota'      => 'required',
             'kecamatan' => 'required',
             'kelurahan' => 'required',
-            'tel' => 'required',
-            'alamat' => 'required'
+            'tel'       => 'required',
+            'alamat'    => 'required'
         ])) {
             return redirect()->to(base_url() . '/unit/edit/' . $this->request->getVar('slug'))->withInput();
-            // return redirect()->to(base_url() . '/unit/edit/' . $this->request->getVar('slug'))->withInput();
         }
 
         $fileGambar = $this->request->getFile('gambar');
@@ -154,18 +150,18 @@ class Unit extends BaseController
         $namaUnit = $this->request->getVar('nama');
         $slug = url_title($namaUnit, '-', true);
         $this->unitModel->save([
-            'id' => $id,
-            'nama' => $namaUnit,
-            'slug' => $slug,
-            'email' => $this->request->getVar('email'),
-            'ketua' => $this->request->getVar('ketua'),
-            'provinsi' => $this->request->getVar('provinsi'),
-            'kota' => $this->request->getVar('kota'),
+            'id'        => $id,
+            'nama'      => $namaUnit,
+            'slug'      => $slug,
+            'email'     => $this->request->getVar('email'),
+            'ketua'     => $this->request->getVar('ketua'),
+            'provinsi'  => $this->request->getVar('provinsi'),
+            'kota'      => $this->request->getVar('kota'),
             'kecamatan' => $this->request->getVar('kecamatan'),
             'kelurahan' => $this->request->getVar('kelurahan'),
-            'alamat' => $this->request->getVar('alamat'),
-            'tel' => $this->request->getVar('tel'),
-            'gambar' => $namaGambar,
+            'alamat'    => $this->request->getVar('alamat'),
+            'tel'       => $this->request->getVar('tel'),
+            'gambar'    => $namaGambar,
         ]);
 
         session()->setFlashdata('pesan', 'Data berhasil diubah.');

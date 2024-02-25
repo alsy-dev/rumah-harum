@@ -27,8 +27,8 @@ class PengajuanUnit extends BaseController
     {
         // dd($this->pengajuanUnitModel->getPointSum(1));
         $data = [
-            'title' => "Riwayat Transaksi nasabah",
-            'pengajuanUnit'  =>  $this->pengajuanUnitModel,
+            'title'             => "Riwayat Transaksi nasabah",
+            'pengajuanUnit'     =>  $this->pengajuanUnitModel,
         ];
 
         return view('pengajuanunit/index', $data);
@@ -48,9 +48,9 @@ class PengajuanUnit extends BaseController
     {
         //         if (!auth()->user()->can('admin.tambah-sampah')) return "Didn't have access";
         if (!$this->validate([
-            'id_unit' => 'required',
-            'id_sampah.*' => 'required',
-            'berat.*' => 'required'
+            'id_unit'       => 'required',
+            'id_sampah.*'   => 'required',
+            'berat.*'       => 'required'
         ])) {
             return $this->failValidationErrors(validation_errors());
             // return redirect()->to('/sampah/create')->withInput();
@@ -95,9 +95,9 @@ class PengajuanUnit extends BaseController
     public function update($id)
     {
         if (!$this->validate([
-            'id_unit' => 'required',
-            'id_sampah.*' => 'required',
-            'berat.*' => 'required'
+            'id_unit'       => 'required',
+            'id_sampah.*'   => 'required',
+            'berat.*'       => 'required'
         ])) {
             return $this->failValidationErrors(validation_errors());
             // return redirect()->to('/sampah/create')->withInput();
@@ -109,8 +109,8 @@ class PengajuanUnit extends BaseController
     public function validatePengajuan($id)
     {
         $this->pengajuanUnitModel->save([
-            'id' => $id,
-            'status' => 'Terverifikasi'
+            'id'        => $id,
+            'status'    => 'Terverifikasi'
         ]);
         return $this->respond(['message' => 'Validated'], 200);
     }
