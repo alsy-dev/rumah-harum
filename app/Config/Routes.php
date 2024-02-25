@@ -41,6 +41,7 @@ $routes->post('/riwayattransaksiunit/save', 'RiwayatTransaksiUnit::save');
 
 $routes->get('/riwayattransaksinasabah', 'RiwayatTransaksiNasabah::index');
 $routes->post('/riwayattransaksinasabah/save', 'RiwayatTransaksiNasabah::save');
+$routes->get('/riwayattransaksinasabah/export', 'RiwayatTransaksiNasabah::export');
 
 $routes->get('/pengajuanunit', 'PengajuanUnit::index');
 $routes->post('/pengajuanunit/save', 'PengajuanUnit::save');

@@ -5,6 +5,8 @@ namespace App\Controllers;
 use App\Models\RiwayatTransaksiNasabahModel;
 use App\Models\UnitModel;
 use CodeIgniter\API\ResponseTrait;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 
 class RiwayatTransaksiNasabah extends BaseController
 {
@@ -48,5 +50,22 @@ class RiwayatTransaksiNasabah extends BaseController
         ]);
 
         return $this->respondCreated(['message' => 'berhasil'], 'yeay');
+    }
+
+    public function export()
+    {
+        $data = [
+            'title'             => "Riwayat Transaksi nasabah",
+            'riwayatTransaksi'  =>  $this->riwayatTransaksiNasabahModel->getRiwayatTransaksiNasabah()
+        ];
+        $options = new Options();
+        $options->setIsRemoteEnabled(true);
+        $domPdf = new Dompdf($options);
+
+        $domPdf->loadHtml(view('export/riwayattransaksinasabah', $data));
+
+        $domPdf->render();
+
+        $domPdf->stream();
     }
 }
