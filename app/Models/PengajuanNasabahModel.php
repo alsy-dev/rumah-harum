@@ -6,11 +6,11 @@ use App\Controllers\PengajuanUnit;
 use App\Controllers\Sampah;
 use CodeIgniter\Model;
 
-class PengajuanUnitModel extends Model
+class PengajuanNasabahModel extends Model
 {
-    protected $table = 'pengajuan_unit';
+    protected $table = 'pengajuan_nasabah';
     protected $useTimestamps = true;
-    protected $allowedFields = ['id_unit', 'status', 'id_user', 'verified_by'];
+    protected $allowedFields = ['id_nasabah', 'id_unit', 'status'];
     protected $sampahPengajuanModel;
 
     public function __construct()
@@ -19,42 +19,43 @@ class PengajuanUnitModel extends Model
         $this->sampahPengajuanModel = model(SampahPengajuanModel::class);
     }
 
-    function getSampahView($idPengajuan = false)
+    function getSampahView($idPengajuan)
     {
-        return $this->sampahPengajuanModel->getSampahView('unit', $idPengajuan);
+        return $this->sampahPengajuanModel->getSampahView('nasabah', $idPengajuan);
     }
 
     function getPointSum($idPengajuan)
     {
-        return $this->sampahPengajuanModel->getPointSum('unit', $idPengajuan);
+        return $this->sampahPengajuanModel->getPointSum('nasabah', $idPengajuan);
     }
 
     function getWeightSum($idPengajuan)
     {
-        return $this->sampahPengajuanModel->getWeightSum('unit', $idPengajuan);
+        return $this->sampahPengajuanModel->getWeightSum('nasabah', $idPengajuan);
     }
 
     function getAllPengajuan()
     {
-        return $this->select(['pengajuan_unit.*', 'unit.nama AS nama_unit'])
-            ->join('unit', 'unit.id = pengajuan_unit.id_unit')
+        return $this->select(['pengajuan_nasabah.*', 'unit.nama AS nama_unit', 'users.nama_lengkap AS nama_nasabah'])
+            ->join('unit', 'unit.id = pengajuan_nasabah.id_unit')
+            ->join('users', 'users.id = pengajuan_nasabah.id_nasabah')
             ->findAll();
     }
 
     function submitPengajuan($array)
     {
         $this->save([
+            'id_nasabah' => $array['id_nasabah'],
             'id_unit' => $array['id_unit'],
             'status' => 'Waiting',
             'id_user' => $array['id_user'] ?: null,
-            'verified_by' => $array['verified_by']
         ]);
 
         $id = $this->getInsertID();
 
         foreach (array_keys($array['id_sampah']) as $index) {
             $this->sampahPengajuanModel->save([
-                'id_pengajuan_unit' => $id,
+                'id_pengajuan_nasabah' => $id,
                 'id_sampah' => $array['id_sampah'][$index],
                 'berat' => $array['berat'][$index],
                 'point' => 20
@@ -66,18 +67,18 @@ class PengajuanUnitModel extends Model
     {
         $this->save([
             'id' => $id,
+            'id_nasabah' => $array['id_nasabah'],
             'id_unit' => $array['id_unit'],
             'status' => 'Waiting',
             'id_user' => $array['id_user'] ?: null,
-            'verified_by' => $array['verified_by']
         ]);
 
-        $oldSampahIds = $this->sampahPengajuanModel->where('id_pengajuan_unit', $id)->findColumn('id');
+        $oldSampahIds = $this->sampahPengajuanModel->where('id_pengajuan_nasabah', $id)->findColumn('id');
         $this->sampahPengajuanModel->delete($oldSampahIds);
 
         foreach (array_keys($array['id_sampah']) as $index) {
             $this->sampahPengajuanModel->save([
-                'id_pengajuan_unit' => $id,
+                'id_pengajuan_nasabah' => $id,
                 'id_sampah' => $array['id_sampah'][$index],
                 'berat' => $array['berat'][$index],
                 'point' => 20

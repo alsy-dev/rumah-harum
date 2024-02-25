@@ -37,12 +37,21 @@ $routes->get('/access/(:segment)', 'Access::detail/$1');
 $routes->post('/access/update/(:num)', 'Access::update/$1');
 
 $routes->get('/riwayattransaksiunit', 'RiwayatTransaksiUnit::index');
+$routes->post('/riwayattransaksiunit/save', 'RiwayatTransaksiUnit::save');
 
 $routes->get('/riwayattransaksinasabah', 'RiwayatTransaksiNasabah::index');
+$routes->post('/riwayattransaksinasabah/save', 'RiwayatTransaksiNasabah::save');
 
 $routes->get('/pengajuanunit', 'PengajuanUnit::index');
 $routes->post('/pengajuanunit/save', 'PengajuanUnit::save');
 $routes->delete('/pengajuanunit/(:num)', 'PengajuanUnit::delete/$1');
 $routes->post('/pengajuanunit/update/(:num)', 'PengajuanUnit::update/$1');
 $routes->post('/pengajuanunit/validate/(:num)', 'PengajuanUnit::validatePengajuan/$1');
+
+$routes->get('/pengajuannasabah', 'PengajuanNasabah::index');
+$routes->post('/pengajuannasabah/save', 'PengajuanNasabah::save');
+$routes->delete('/pengajuannasabah/(:num)', 'PengajuanNasabah::delete/$1');
+$routes->post('/pengajuannasabah/update/(:num)', 'PengajuanNasabah::update/$1');
+$routes->post('/pengajuannasabah/validate/(:num)', 'PengajuanNasabah::validatePengajuan/$1');
+
 service('auth')->routes($routes);

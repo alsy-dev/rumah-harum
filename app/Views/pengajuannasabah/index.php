@@ -14,6 +14,7 @@
                 <thead>
                     <tr>
                         <th scope="col">#</th>
+                        <th scope="col">Nama</th>
                         <th scope="col">Unit</th>
                         <th scope="col">Waktu</th>
                         <th scope="col">Sampah</th>
@@ -25,14 +26,15 @@
                 </thead>
                 <tbody>
                     <?php $i = 1; ?>
-                    <?php foreach ($pengajuanUnit->getAllPengajuan() as $r) : ?>
+                    <?php foreach ($pengajuanNasabah->getAllPengajuan() as $r) : ?>
                         <tr>
                             <th scope="row"><?= $i++; ?></th>
+                            <td><?= $r['nama_nasabah']; ?></td>
                             <td><?= $r['nama_unit']; ?></td>
                             <td><?= $r['created_at']; ?></td>
-                            <td><?= character_limiter($pengajuanUnit->getSampahView($r['id']), 10); ?></td>
-                            <td><?= $pengajuanUnit->getPointSum($r['id']); ?></td>
-                            <td><?= $pengajuanUnit->getWeightSum($r['id']); ?></td>
+                            <td><?= character_limiter($pengajuanNasabah->getSampahView($r['id']), 10); ?></td>
+                            <td><?= $pengajuanNasabah->getPointSum($r['id']); ?></td>
+                            <td><?= $pengajuanNasabah->getWeightSum($r['id']); ?></td>
                             <td><?= $r['status']; ?></td>
                             <td></td>
                         </tr>
